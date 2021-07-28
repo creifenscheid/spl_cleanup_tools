@@ -2,6 +2,8 @@
 
 namespace CReifenscheid\CleanupTools\Utility;
 
+use CReifenscheid\CleanupTools\Service\ConfigurationService;
+
 /**
  * *************************************************************
  *
@@ -40,27 +42,31 @@ class LocalizationUtility
     /**
      * Returns the localized label of the LOCAL_LANG key, $key.
      *
-     * @param string $key The key from the LOCAL_LANG array for which to return the value.
+     * @param string     $key The key from the LOCAL_LANG array for which to return the value.
      * @param array|null $arguments
+     *
+     * @return string|null
      */
-    public static function translate(string $key, array $arguments = null): ?string
+    public static function translate(string $key, array $arguments = null) : ?string
     {
-        $configurationService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\CReifenscheid\CleanupTools\Service\ConfigurationService::class);
-        
+        $configurationService = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(ConfigurationService::class);
+
         $localizationPaths = $configurationService->getLocalizationFilePaths();
-        
+
         foreach ($localizationPaths as $localizationPath) {
             if (!\TYPO3\CMS\Core\Utility\GeneralUtility::isFirstPartOfStr($key, 'LLL:')) {
                 $localizationPath = "LLL:" . $localizationPath;
+
+                $localizationValue = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($localizationPath . ':' . $key, null, $arguments);
+            } else {
+                $localizationValue = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($key, null, $arguments);
             }
-            
-            $localizationValue = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate($localizationPath . ':' . $key, null, $arguments);
-            
+
             if (!empty($localizationValue)) {
                 return $localizationValue;
             }
         }
-        
+
         return null;
     }
 }

@@ -180,10 +180,7 @@ class ConfigurationManagementUtility
             return $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['cleanup_tools'];
         }
         
-        $configuration = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS'];
-        $configuration['cleanup_tools'] = [];
-        
-        return $configuration;
+        return [];
     }
     
     /**

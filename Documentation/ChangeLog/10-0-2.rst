@@ -1,0 +1,12 @@
+.. include:: ../../Includes.txt
+
+
+.. _10-0-2:
+
+10.0.2 - 2021/xx/yy
+==================
+
+Changes
+-------
+* fix minor bug in \CReifenscheid\CleanupTools\Utility\ConfigurationManagementUtility::getConfiguration()
+

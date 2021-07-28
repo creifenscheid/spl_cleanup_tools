@@ -70,6 +70,6 @@ class TranslateViewHelper extends \TYPO3Fluid\Fluid\Core\ViewHelper\AbstractView
             throw new Exception('An argument "key" has to be provided', 1351584844);
         }
 
-        return \CReifenscheid\CleanupTools\Utility\LocalizationUtility::translate($key, $arguments);
+        return \CReifenscheid\CleanupTools\Utility\LocalizationUtility::translate($key, $translateArguments);
     }
 }

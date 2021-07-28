@@ -40,8 +40,13 @@ defined('TYPO3_MODE') or die();
         'filesWithMultipleReferencesService',
         \CReifenscheid\CleanupTools\Service\CleanupService\FilesWithMultipleReferencesService::class
     );
-   
-    // LOCALLANGUAGE FILE PATH REGISTRATION
+
+    \CReifenscheid\CleanupTools\Utility\ConfigurationManagementUtility::addCleanupService(
+        'corruptMMRelationsService',
+        \CReifenscheid\CleanupTools\Service\CleanupService\CorruptMMRelationsService::class
+    );
+    \CReifenscheid\CleanupTools\Utility\ConfigurationManagementUtility::addLocalizationFilePath('EXT:cleanup_tools/Resources/Private/Language/Services/locallang_corruptMMRelationsService.xlf');
+
     \CReifenscheid\CleanupTools\Utility\ConfigurationManagementUtility::addLocalizationFilePath('EXT:cleanup_tools/Resources/Private/Language/locallang_descriptions.xlf');
     \CReifenscheid\CleanupTools\Utility\ConfigurationManagementUtility::addLocalizationFilePath('EXT:cleanup_tools/Resources/Private/Language/locallang_parameters.xlf');
     

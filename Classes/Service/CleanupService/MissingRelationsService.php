@@ -53,15 +53,15 @@ class MissingRelationsService extends AbstractCleanupService
      *
      * @var bool
      */
-    protected $updateRefindex = false;
-    
+    private $updateRefIndex = false;
+
     /**
-     * @param boolean $updateRefindex
+     * @param boolean $updateRefIndex
      * @return void
      */
-    public function setUpdateRefindex(bool $updateRefindex) : void
+    public function setUpdateRefIndex(bool $updateRefIndex) : void
     {
-        $this->updateRefindex = $updateRefindex;
+        $this->updateRefIndex = $updateRefIndex;
     }
 
     /**

@@ -1,6 +1,10 @@
 <?php
 namespace CReifenscheid\CleanupTools\Service\CleanupService;
 
+use CReifenscheid\CleanupTools\Utility\LocalizationUtility;
+use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerAwareInterface;
+
 /**
  * *************************************************************
  *
@@ -34,8 +38,10 @@ namespace CReifenscheid\CleanupTools\Service\CleanupService;
  * @packagee CReifenscheid\CleanupTools\Service\CleanupService
  * @author C. Reifenscheid
  */
-abstract class AbstractCleanupService
+abstract class AbstractCleanupService implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     /*
      * dry run
      *
@@ -121,9 +127,9 @@ abstract class AbstractCleanupService
     /**
      * Create and add logMessage object
      *
-     * @param string $message
+     * @param string|null $message
      */
-    protected function addMessage(string $message): void
+    protected function addMessage(?string $message): void
     {
         if (!$this->dryRun) {
             $log = $this->getLog();
@@ -144,10 +150,12 @@ abstract class AbstractCleanupService
     /**
      * Create and add logMessage object with localization key
      *
-     * @param string $key
+     * @param string     $key
      * @param null|array $arguments
+     *
+     * @return null|string
      */
-    protected function addLLLMessage(string $key, array $arguments = null): void
+    protected function addLLLMessage(string $key, ?array $arguments = null): ?string
     {
         if (!$this->dryRun) {
             $log = $this->getLog();
@@ -168,6 +176,15 @@ abstract class AbstractCleanupService
             // save log
             $this->setLog($log);
         }
+
+        // get localization value to return for further usage, e.g. as flash message
+        $message = LocalizationUtility::translate($key, $arguments);
+
+        if (!$message) {
+            $this->logger->warning(__CLASS__ . ':: Message could not be localized', ['key' => $key]);
+        }
+
+        return $message;
     }
 
     /**
