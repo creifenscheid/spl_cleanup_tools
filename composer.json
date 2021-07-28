@@ -16,5 +16,10 @@
 			"name" : "C. Reifenscheid",
 			"email" : "christian.reifenscheid.2112@gmail.com"
 		}
-	]
+	],
+	"extra": {
+          "typo3/cms": {
+            "extension-key": "cleanup_tools"
+          }
+        }
 }
